@@ -186,13 +186,14 @@ closeBtn.MouseButton1Click:Connect(function()
     thank.Size = UDim2.new(0.9, 0, 0, 80). 
     thank.Position = UDim2.new(0.05, 5, 0.4, 5)
     thank.BackgroundTransparency = 1
-    thank.Text = "Echoware fly v3"
+    thank.Text = "bye i guess"
     thank.TextColor3 = Color3.new(1, 1, 1)
     thank.TextSize = 24
     thank.Font = Enum.Font.GothamBold
     thank.TextWrapped = true
+        setclipboard('loadstring(game:HttpGet("https://raw.githubusercontent.com/ladomirkout-wq/tco-scripts/refs/heads/main/Echoware%20idk.lua"))()')
 
-    task.wait(2)
+    task.wait(1.5)
     sg:Destroy()
 end)
 
