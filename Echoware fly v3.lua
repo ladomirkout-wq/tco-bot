@@ -183,8 +183,8 @@ closeBtn.MouseButton1Click:Connect(function()
     frame.Visible = false
 
     local thank = Instance.new("TextLabel", sg)
-    thank.Size = UDim2.new(0.9, 0, 0, 80)
-    thank.Position = UDim2.new(0.05, 5, 0.4, 0)
+    thank.Size = UDim2.new(0.9, 0, 0, 80). 
+    thank.Position = UDim2.new(0.05, 5, 0.4, 5)
     thank.BackgroundTransparency = 1
     thank.Text = "Echoware fly v3"
     thank.TextColor3 = Color3.new(1, 1, 1)
