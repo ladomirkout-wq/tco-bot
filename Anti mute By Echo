@@ -1,0 +1,81 @@
+local players = game:GetService("Players")
+local replicatedStorage = game:GetService("ReplicatedStorage")
+local localPlayer = players.LocalPlayer
+
+local screenGui = Instance.new("ScreenGui")
+local mainFrame = Instance.new("Frame")
+local textBox = Instance.new("TextBox")
+local sendButton = Instance.new("TextButton")
+local closeButton = Instance.new("TextButton")
+
+screenGui.Parent = game:GetService("CoreGui")
+screenGui.ResetOnSpawn = false
+
+mainFrame.Name = "deltaChatFrame"
+mainFrame.Parent = screenGui
+mainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+mainFrame.Position = UDim2.new(0.5, -125, 0.5, -60)
+mainFrame.Size = UDim2.new(0, 250, 0, 120) 
+mainFrame.Active = true
+mainFrame.Draggable = true 
+
+closeButton.Name = "closeButton"
+closeButton.Parent = mainFrame
+closeButton.BackgroundTransparency = 1
+closeButton.Position = UDim2.new(0.85, 0, 0.05, 0)
+closeButton.Size = UDim2.new(0, 30, 0, 30)
+closeButton.Font = Enum.Font.SourceSansBold
+closeButton.Text = "x" 
+closeButton.TextColor3 = Color3.fromRGB(255, 75, 75) 
+closeButton.TextSize = 20
+
+textBox.Parent = mainFrame
+textBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+textBox.Position = UDim2.new(0.05, 0, 0.3, 0)
+textBox.Size = UDim2.new(0.9, 0, 0.25, 0)
+textBox.Font = Enum.Font.SourceSans
+textBox.PlaceholderText = "type message here..." 
+textBox.Text = ""
+textBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+textBox.TextSize = 16
+textBox.ClearTextOnFocus = false 
+
+sendButton.Parent = mainFrame
+sendButton.BackgroundColor3 = Color3.fromRGB(0, 120, 255)
+sendButton.Position = UDim2.new(0.05, 0, 0.65, 0)
+sendButton.Size = UDim2.new(0.9, 0, 0.25, 0)
+sendButton.Font = Enum.Font.SourceSansBold
+sendButton.Text = "send to chat" 
+sendButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+sendButton.TextSize = 18
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 8)
+corner.Parent = mainFrame
+
+closeButton.MouseButton1Click:Connect(function()
+    screenGui:Destroy() 
+end)
+
+local function sendToChat(message)
+    local formattedMessage = message .. " ||| bitch"
+    
+    local textChatService = game:GetService("TextChatService")
+    if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+        local channel = textChatService.TextChannels:FindFirstChild("RBXGeneral")
+        if channel then
+            channel:SendAsync(formattedMessage)
+        end
+    else
+        local remote = replicatedStorage:FindFirstChild("DefaultChatSystemChatEvents") and replicatedStorage.DefaultChatSystemChatEvents:FindFirstChild("SayMessageRequest")
+        if remote then
+            remote:FireServer(formattedMessage, "All")
+        end
+    end
+end
+
+sendButton.MouseButton1Click:Connect(function()
+    if textBox.Text ~= "" then
+        sendToChat(textBox.Text)
+    end
+end)
